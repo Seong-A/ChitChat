@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".`ChatActivity.kt`">
+    tools:context=".ChatActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -34,9 +34,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_msg"
             android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/btn_send"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
             android:hint="Write here"
             android:padding="16dp"
-            android:layout_toLeftOf="@+id/btn_send"
             android:background="@drawable/rounded_corner"/>
 
         <ImageButton
