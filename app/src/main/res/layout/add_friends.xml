@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="친구 추가"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextFriendName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="이름"
+        android:inputType="textPersonName"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editTextFriendPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="전화번호"
+        android:layout_marginTop="30dp"
+        android:inputType="phone"
+        android:paddingBottom="8dp"/>
+
+    <Button
+        android:id="@+id/buttonAddFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/blue"
+        android:text="친구 추가"/>
+
+</LinearLayout>

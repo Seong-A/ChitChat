@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/friends"
+        android:title="친구" />
+    <item
+        android:id="@+id/like"
+        android:enabled="true"
+        android:icon="@drawable/chat"
+        android:title="채팅" />
+    <item
+        android:id="@+id/map"
+        android:enabled="true"
+        android:icon="@drawable/bot"
+        android:title="봇채팅" />
+    <item
+        android:id="@+id/mypage"
+        android:enabled="true"
+        android:icon="@drawable/mypage"
+        android:title="마이페이지" />
+</menu>
