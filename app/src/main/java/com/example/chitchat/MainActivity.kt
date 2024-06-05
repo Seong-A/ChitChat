@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chitchat.adapter.FriendAdapter
 import com.example.chitchat.model.Friend
 import com.example.chitchat.model.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,17 +27,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        friendRecyclerView = findViewById(R.id.freindRecyclerView)
+        friendRecyclerView = findViewById(R.id.friendRecyclerView)
         friendRecyclerView.layoutManager = LinearLayoutManager(this)
 
         database = FirebaseDatabase.getInstance()
 
         friendList = ArrayList()
-
-        loadFriendsFromFirebaseDatabase()
-
         friendAdapter = FriendAdapter(this, friendList)
         friendRecyclerView.adapter = friendAdapter
+
+        loadFriendsFromFirebaseDatabase()
+        loadCurrentUser()  // Load current user's information
 
         val addFriendButton: ImageView = findViewById(R.id.addFriend)
         addFriendButton.setOnClickListener {
@@ -43,18 +45,48 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFriendsFromFirebaseDatabase() {
-        val usersRef = database.getReference("users")
-        usersRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                friendList.clear()
-                for (snapshot in dataSnapshot.children) {
-                    val user = snapshot.getValue(User::class.java)
+    private fun loadCurrentUser() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val userRef = database.getReference("users/${currentUser.uid}")
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(User::class.java)
                     if (user != null) {
-                        friendList.add(Friend(user.name, R.drawable.profile)) // Assuming a default profile image
+                        findViewById<TextView>(R.id.nickNameArea).text = user.name
                     }
                 }
-                friendAdapter.notifyDataSetChanged()
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle possible errors
+                }
+            })
+        }
+    }
+
+    private fun loadFriendsFromFirebaseDatabase() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val userRef = database.getReference("users/${currentUser?.uid}")
+        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                friendList.clear()
+                val friends = dataSnapshot.child("friends").children
+                friends.forEach { friend ->
+                    val userId = friend.key ?: return@forEach
+                    val userRef = database.getReference("users/$userId")
+                    userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val user = snapshot.getValue(User::class.java)
+                            if (user != null) {
+                                friendList.add(Friend(user.name, R.drawable.profile))
+                                friendAdapter.notifyDataSetChanged()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                        }
+                    })
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -92,8 +124,14 @@ class MainActivity : AppCompatActivity() {
                     for (snapshot in dataSnapshot.children) {
                         val user = snapshot.getValue(User::class.java)
                         if (user != null && user.name == name) {
-                            friendList.add(Friend(user.name, R.drawable.profile)) // Assuming a default profile image
-                            friendAdapter.notifyDataSetChanged()
+                            val currentUser = FirebaseAuth.getInstance().currentUser
+                            val currentUserRef = database.getReference("users/${currentUser?.uid}/friends/${snapshot.key}")
+                            currentUserRef.setValue(true).addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    friendList.add(Friend(user.name, R.drawable.profile))
+                                    friendAdapter.notifyDataSetChanged()
+                                }
+                            }
                             friendFound = true
                             break
                         }

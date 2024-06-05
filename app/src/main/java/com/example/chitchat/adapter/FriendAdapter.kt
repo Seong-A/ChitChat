@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chitchat.R
 import com.example.chitchat.model.Friend
 
-class FriendAdapter(private val context: Context, private val friendList: List<Friend>) :
+class FriendAdapter(private val context: Context, private val friendList: MutableList<Friend>) :
     RecyclerView.Adapter<FriendAdapter.FriendViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
@@ -20,10 +20,8 @@ class FriendAdapter(private val context: Context, private val friendList: List<F
 
     override fun onBindViewHolder(holder: FriendViewHolder, position: Int) {
         val friend = friendList[position]
-        holder.nickName.text = friend.nickName
-        holder.profileImage.setImageResource(friend.profileImageResId) // If using a drawable resource ID
-        // Alternatively, if using an image URL with a library like Glide:
-        // Glide.with(context).load(friend.profileImageUrl).into(holder.profileImage)
+        holder.nameTextView.text = friend.name
+        holder.profileImageView.setImageResource(friend.profileImageResId)
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +29,7 @@ class FriendAdapter(private val context: Context, private val friendList: List<F
     }
 
     class FriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val profileImage: ImageView = itemView.findViewById(R.id.listProfileArea)
-        val nickName: TextView = itemView.findViewById(R.id.listNickNameArea)
+        val nameTextView: TextView = itemView.findViewById(R.id.listNickNameArea)
+        val profileImageView: ImageView = itemView.findViewById(R.id.listProfileArea)
     }
 }

@@ -1,6 +1,6 @@
 package com.example.chitchat.model
 
 data class Friend(
-    val nickName: String = "",
+    val name: String = "",
     val profileImageResId: Int
 )

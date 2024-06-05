@@ -11,8 +11,8 @@
         android:id="@+id/logo_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/logo"
@@ -68,6 +68,7 @@
         android:layout_below="@id/profile"/>
 
     <RelativeLayout
+        android:id="@+id/friend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/profile"
@@ -94,11 +95,12 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/freindRecyclerView"
+        android:id="@+id/friendRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+        android:layout_height="wrap_content"
+        android:layout_below="@id/friend"
+        android:layout_above="@id/bottomNavigationView"
+        tools:listitem="@layout/listview_item" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -114,4 +116,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </RelativeLayout>
