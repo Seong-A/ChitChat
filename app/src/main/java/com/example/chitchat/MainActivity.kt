@@ -1,5 +1,6 @@
 package com.example.chitchat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chitchat.adapter.FriendAdapter
 import com.example.chitchat.model.Friend
 import com.example.chitchat.model.User
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -43,6 +45,35 @@ class MainActivity : AppCompatActivity() {
         addFriendButton.setOnClickListener {
             showAddFriendDialog()
         }
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.home -> {
+                    true
+                }
+                R.id.chat -> {
+                    val likeintent = Intent(this, ChatActivity::class.java)
+                    startActivity(likeintent)
+                    finish()
+                    true
+                }
+                R.id.botchat -> {
+                    val mapintent = Intent(this, BotChatActivity::class.java)
+                    startActivity(mapintent)
+                    finish()
+                    true
+                }
+                R.id.mypage -> {
+                    val mypageintent = Intent(this, MypageActivity::class.java)
+                    startActivity(mypageintent)
+                    true
+                }
+                else -> false
+            }
+        }
+        bottomNavigationView.selectedItemId = R.id.home
     }
 
     private fun loadCurrentUser() {

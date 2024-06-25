@@ -6,12 +6,12 @@
         android:icon="@drawable/friends"
         android:title="친구" />
     <item
-        android:id="@+id/like"
+        android:id="@+id/chat"
         android:enabled="true"
         android:icon="@drawable/chat"
         android:title="채팅" />
     <item
-        android:id="@+id/map"
+        android:id="@+id/botchat"
         android:enabled="true"
         android:icon="@drawable/bot"
         android:title="봇채팅" />
