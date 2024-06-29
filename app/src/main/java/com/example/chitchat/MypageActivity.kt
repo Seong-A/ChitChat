@@ -70,14 +70,14 @@ class MypageActivity : AppCompatActivity() {
                     true
                 }
                 R.id.chat -> {
-                    val likeintent = Intent(this, ChatActivity::class.java)
-                    startActivity(likeintent)
+                    val chatintent = Intent(this, ChatListActivity::class.java)
+                    startActivity(chatintent)
                     finish()
                     true
                 }
                 R.id.botchat -> {
-                    val mapintent = Intent(this, BotChatActivity::class.java)
-                    startActivity(mapintent)
+                    val botintent = Intent(this, BotChatActivity::class.java)
+                    startActivity(botintent)
                     finish()
                     true
                 }
@@ -102,7 +102,7 @@ class MypageActivity : AppCompatActivity() {
                     name?.let {
                         val nameMessage = "$it 님"
                         val emailMessage = "$email"
-                        userTextView.text = nameMessage + "\n\n" + emailMessage
+                        userTextView.text = nameMessage + "\n" + emailMessage
                     }
                 }
 

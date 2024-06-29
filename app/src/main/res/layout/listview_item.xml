@@ -15,14 +15,29 @@
         android:layout_marginVertical="10dp"
         android:layout_marginLeft="20dp"/>
 
-    <TextView
-        android:id="@+id/listNickNameArea"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/black"
-        android:textSize="23sp"
-        android:text="TextArea"
-        android:layout_marginLeft="20dp"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp">
 
+        <TextView
+            android:id="@+id/listNickNameArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:text="NickName"
+            android:layout_marginTop="25dp"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextArea"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chitchat.R
 import com.example.chitchat.model.Message
 
-class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter(private val messages: List<Message>, private val currentUser: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val VIEW_TYPE_USER = 1
@@ -16,7 +16,7 @@ class MessageAdapter(private val messages: List<Message>) : RecyclerView.Adapter
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (messages[position].isUser) VIEW_TYPE_USER else VIEW_TYPE_BOT
+        return if (messages[position].sender == currentUser) VIEW_TYPE_USER else VIEW_TYPE_BOT
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

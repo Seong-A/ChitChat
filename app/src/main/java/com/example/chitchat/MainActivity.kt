@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         friendRecyclerView.adapter = friendAdapter
 
         loadFriendsFromFirebaseDatabase()
-        loadCurrentUser()  // Load current user's information
+        loadCurrentUser()
 
         val addFriendButton: ImageView = findViewById(R.id.addFriend)
         addFriendButton.setOnClickListener {
@@ -54,20 +54,21 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.chat -> {
-                    val likeintent = Intent(this, ChatActivity::class.java)
-                    startActivity(likeintent)
+                    val chatintent = Intent(this, ChatListActivity::class.java)
+                    startActivity(chatintent)
                     finish()
                     true
                 }
                 R.id.botchat -> {
-                    val mapintent = Intent(this, BotChatActivity::class.java)
-                    startActivity(mapintent)
+                    val botintent = Intent(this, BotChatActivity::class.java)
+                    startActivity(botintent)
                     finish()
                     true
                 }
                 R.id.mypage -> {
                     val mypageintent = Intent(this, MypageActivity::class.java)
                     startActivity(mypageintent)
+                    finish()
                     true
                 }
                 else -> false
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val user = snapshot.getValue(User::class.java)
                             if (user != null) {
-                                friendList.add(Friend(user.name, R.drawable.profile))
+                                friendList.add(Friend(user.name, user.email, R.drawable.profile))
                                 friendAdapter.notifyDataSetChanged()
                             }
                         }
@@ -159,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                             val currentUserRef = database.getReference("users/${currentUser?.uid}/friends/${snapshot.key}")
                             currentUserRef.setValue(true).addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    friendList.add(Friend(user.name, R.drawable.profile))
+                                    friendList.add(Friend(user.name, user.email, R.drawable.profile))
                                     friendAdapter.notifyDataSetChanged()
                                 }
                             }

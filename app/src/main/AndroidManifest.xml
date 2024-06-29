@@ -19,7 +19,10 @@
             android:exported="true">
         </activity>
         <activity
-            android:name="ChatActivity"
+            android:name=".ChatActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".ChatListActivity"
             android:exported="true">
         </activity>
         <activity android:name=".LoginActivity"
@@ -31,6 +34,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignUpActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".BotChatActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".MypageActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".UserInfoActivity"
+            android:exported="true">
+        </activity>
+        <activity android:name=".SearchFriendActivity"
             android:exported="true">
         </activity>
 
